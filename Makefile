@@ -4,7 +4,7 @@ GITHUB_REPO = gae_fw_update
 BASEDIR = $(CURDIR)
 PKGDIR_NAME  = pkg
 PKGDIR  = $(CURDIR)/$(PKGDIR_NAME)
-VERSION ?= `grep VERSION version.go | cut -f2 -d\"`
+VERSION ?= `grep Version version.go | cut -f2 -d\"`
 
 .PHONY: setup
 setup:
@@ -28,6 +28,17 @@ dep_ensure:
 .PHONY: build
 build:
 	go build .
+
+.PHONY: version
+version:
+	@echo ${VERSION}
+
+.PHONY: git_tag git_push_tag tag
+git_tag:
+	git tag v${VERSION}
+git_push_tag:
+	git push origin v${VERSION}
+tag: git_tag git_push_tag
 
 .PHONY: packages
 packages: OS_LIST := linux darwin
