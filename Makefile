@@ -1,9 +1,9 @@
-# GAE_PROJECT ?= example-project
 GITHUB_ORG  = akm
-GITHUB_REPO = gae_static_ip
+GITHUB_REPO = gae_fw_update
 
 BASEDIR = $(CURDIR)
-PKGDIR  = $(CURDIR)/pkg
+PKGDIR_NAME  = pkg
+PKGDIR  = $(CURDIR)/$(PKGDIR_NAME)
 VERSION ?= `grep VERSION version.go | cut -f2 -d\"`
 
 .PHONY: setup
@@ -19,7 +19,7 @@ Gopkg.toml:
 	@dep init
 .gitignore:
 	@echo "/vendor" >> .gitignore
-	@echo "/${PKGDIR}" >> .gitignore
+	@echo "/${PKGDIR_NAME}" >> .gitignore
 
 .PHONY: dep_ensure
 dep_ensure:
